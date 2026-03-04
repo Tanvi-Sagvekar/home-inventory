@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-4">
+  <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+      <h2 class="mb-0">My Home Inventory</h2>
+      <p class="text-muted mb-0">Track what you have, what’s expiring, and what needs refill.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card summary-card card-dashboard-total">
+      <div class="card-body text-center">
+        <h6 class="text-muted text-uppercase small">Total Items</h6>
+        <div class="display-5 fw-bold">{{ total_items }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card summary-card card-dashboard-expiring">
+      <div class="card-body text-center">
+        <h6 class="text-muted text-uppercase small">Expiring Soon</h6>
+        <div class="display-5 fw-bold text-warning">{{ expiring_soon }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card summary-card card-dashboard-refill">
+      <div class="card-body text-center">
+        <h6 class="text-muted text-uppercase small">Need Refill</h6>
+        <div class="display-5 fw-bold text-danger">{{ low_stock }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card card-shortcuts">
+      <div class="card-body text-center">
+        <h5 class="card-title mb-3">Quick Actions</h5>
+        <a href="{{ url_for('scan') }}" class="btn btn-primary btn-lg mb-2 w-100">📷 Scan Product</a>
+        <a href="{{ url_for('add_item') }}" class="btn btn-outline-primary btn-lg w-100">➕ Add Manually</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Shortcuts</h5>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2">
+            <a href="{{ url_for('items', filter='all') }}">View all items</a>
+          </li>
+          <li class="mb-2">
+            <a href="{{ url_for('items', filter='expiring') }}">View items expiring soon</a>
+          </li>
+          <li class="mb-2">
+            <a href="{{ url_for('items', filter='low_stock') }}">View items that need refill</a>
+          </li>
+          <li class="mb-2">
+            <a href="{{ url_for('alerts') }}">View expiry alerts</a>
+          </li>
+          <li>
+            <a href="{{ url_for('refill') }}">View refill reminder list</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 mt-3">
+    <div class="card quick-use-card">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Quick Use (Like Calculator)</h5>
+        {% if quick_items %}
+          <form method="post" action="{{ url_for('quick_use') }}" class="row g-2 align-items-end">
+            <div class="col-12">
+              <label class="form-label">Select Item</label>
+              <select name="item_id" class="form-select" required>
+                {% for item in quick_items %}
+                  {% set u = (item.unit or 'count')|lower %}
+                  <option value="{{ item.id }}">
+                    {{ item.product_name }} – {{ item.quantity }} {{ u }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-5">
+              <label class="form-label">Amount Used</label>
+              <input type="number" step="0.01" name="amount" class="form-control" placeholder="e.g. 0.2" required>
+            </div>
+            <div class="col-3">
+              <label class="form-label">Unit</label>
+              <select name="amount_unit" class="form-select">
+                <option value="">Same as item</option>
+                <option value="kg">kg</option>
+                <option value="g">g</option>
+                <option value="l">L</option>
+                <option value="ml">ml</option>
+                <option value="count">count</option>
+              </select>
+            </div>
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary w-100">Apply</button>
+            </div>
+          </form>
+          <small class="text-muted d-block mt-2">
+            Example: For 2 kg rice, type 200 and choose "g" to subtract 200 g.
+          </small>
+        {% else %}
+          <p class="text-muted mb-0">Add some items first to use this panel.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

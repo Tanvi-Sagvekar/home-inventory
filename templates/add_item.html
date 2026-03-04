@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8 col-lg-6 mx-auto">
+    <h2 class="mb-3">Add Item Manually</h2>
+    <p class="text-muted">You can also use the camera on the <a href="{{ url_for('scan') }}">Scan Product</a> page.</p>
+
+    <form method="post" class="card card-body">
+      <div class="mb-3">
+        <label class="form-label">Product Name *</label>
+        <input type="text" name="product_name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Barcode</label>
+        <input type="text" name="barcode" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <input type="text" name="category" class="form-control" placeholder="Milk, Medicine, Cosmetic, etc.">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" name="location" class="form-control" placeholder="Kitchen, Fridge, Bathroom, Medical box, etc.">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Expiry Date</label>
+        <input type="date" name="expiry_date" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input type="number" step="0.01" name="quantity" class="form-control" value="1" min="0">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Unit</label>
+        <select name="unit" class="form-select">
+          <option value="count" selected>Count / pieces</option>
+          <option value="kg">Kilogram (kg)</option>
+          <option value="g">Gram (g)</option>
+          <option value="l">Litre (L)</option>
+          <option value="ml">Millilitre (ml)</option>
+        </select>
+        <div class="form-text">
+          You can use decimals, e.g. 0.2 kg ≈ 200 g, 1.5 L.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Minimum Quantity</label>
+        <input type="number" step="0.01" name="min_quantity" class="form-control" value="1" min="0">
+        <div class="form-text">If quantity goes below this, item will be marked as "Need Refill".</div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Save Item</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

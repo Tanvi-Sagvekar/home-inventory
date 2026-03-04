@@ -1,0 +1,151 @@
+body {
+  background: radial-gradient(circle at top left, #e0f2ff 0, #f5f7fb 40%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+.navbar {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  background: linear-gradient(135deg, #4f46e5, #2563eb, #14b8a6);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.summary-card {
+  border: none;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #ffffff, #ecf3ff);
+}
+
+.summary-card .display-5 {
+  font-size: 2.6rem;
+}
+
+.card-dashboard-total {
+  background: linear-gradient(135deg, #dbeafe, #eff6ff);
+}
+
+.card-dashboard-expiring {
+  background: linear-gradient(135deg, #fef3c7, #fee2e2);
+}
+
+.card-dashboard-refill {
+  background: linear-gradient(135deg, #dcfce7, #e0f2fe);
+}
+
+.card {
+  border-radius: 18px;
+  border: none;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.card-shortcuts {
+  background: linear-gradient(145deg, #eef2ff, #e0f2fe);
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+#reader {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 1rem auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+}
+
+.list-group-item {
+  border-radius: 12px !important;
+  margin-bottom: 0.5rem;
+  border: none;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.btn {
+  border-radius: 999px;
+  font-weight: 500;
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.15s ease-out;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #4338ca);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+}
+
+.btn-outline-primary {
+  border-color: #4f46e5;
+  color: #4338ca;
+}
+
+.btn-outline-primary:hover {
+  background: radial-gradient(circle at top left, #eef2ff, #e0f2fe);
+  border-color: #4f46e5;
+  color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.6);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(209, 213, 219, 0.15);
+}
+
+.badge {
+  border-radius: 999px;
+}
+
+.quick-use-card {
+  background: linear-gradient(135deg, #fef3c7, #e0f2fe);
+}
+
+.quick-use-card label {
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+/* Magical glowing focus for inputs & selects */
+
+.form-control,
+.form-select {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.15s ease-out, border-color 0.15s ease-out, background 0.15s ease-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #4f46e5;
+  box-shadow:
+    0 0 0 1px rgba(79, 70, 229, 0.4),
+    0 0 0 6px rgba(56, 189, 248, 0.18);
+  background: radial-gradient(circle at top left, #eef2ff, #e0f2fe);
+}
+
+/* Forms as soft cards */
+
+.card.card-body {
+  background: radial-gradient(circle at top left, #ffffff, #eef2ff);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+/* Table hover for a bit of magic */
+
+.table tbody tr:hover > * {
+  background-color: rgba(191, 219, 254, 0.45) !important;
+  transition: background-color 0.12s ease-out;
+}
+

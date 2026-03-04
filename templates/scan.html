@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8 col-lg-6 mx-auto">
+    <h2 class="mb-3">Scan Product Barcode</h2>
+    <p class="text-muted">
+      Allow camera access to scan barcodes on medicines, groceries, and other items.
+      After scanning, the product name will be auto-filled (if found) and you can confirm details before saving.
+    </p>
+
+    <div id="reader" class="mb-3"></div>
+
+    <form id="scan-form" method="post" action="{{ url_for('add_item') }}" class="card card-body">
+      <div class="mb-3">
+        <label class="form-label">Barcode</label>
+        <input type="text" id="barcode" name="barcode" class="form-control" readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Product Name *</label>
+        <input type="text" id="product_name" name="product_name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <input type="text" name="category" class="form-control" placeholder="Milk, Medicine, Cosmetic, etc.">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" name="location" class="form-control" placeholder="Kitchen, Fridge, Bathroom, Medical box, etc.">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Expiry Date</label>
+        <input type="date" name="expiry_date" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input type="number" name="quantity" class="form-control" value="1" min="0">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Minimum Quantity</label>
+        <input type="number" name="min_quantity" class="form-control" value="1" min="0">
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Save Item</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script>
+  const barcodeInput = document.getElementById("barcode");
+  const nameInput = document.getElementById("product_name");
+
+  function onScanSuccess(decodedText, decodedResult) {
+    if (!decodedText) {
+      return;
+    }
+    barcodeInput.value = decodedText;
+
+    fetch("{{ url_for('get_product', barcode='') }}" + decodedText)
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.product_name) {
+          nameInput.value = data.product_name;
+        }
+      })
+      .catch(() => {});
+  }
+
+  function onScanFailure(error) {
+    // Ignore scan errors; they are frequent during scanning.
+  }
+
+  const html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader",
+    { fps: 10, qrbox: 250 },
+    false
+  );
+  html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>
+{% endblock %}
+

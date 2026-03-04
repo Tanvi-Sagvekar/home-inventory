@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Refill Reminder List</h2>
+  <a href="{{ url_for('items', filter='low_stock') }}" class="btn btn-outline-secondary btn-sm">View in Items List</a>
+</div>
+
+{% if items %}
+  <p class="text-muted">🛒 Items that have low quantity and may need refill.</p>
+  <div class="list-group">
+    {% for item in items %}
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <div class="fw-semibold">{{ item.product_name }}</div>
+          <small class="text-muted">
+            Qty: {{ item.quantity }} (min {{ item.min_quantity }}) •
+            {{ item.category or 'Uncategorized' }} • {{ item.location or 'No location' }}
+          </small>
+        </div>
+        <span class="badge bg-warning text-dark">Needs Refill</span>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-success">
+    All items are above their minimum quantity. ✅
+  </div>
+{% endif %}
+{% endblock %}
+

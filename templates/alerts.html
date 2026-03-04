@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Expiry Alerts</h2>
+  <a href="{{ url_for('items', filter='expiring') }}" class="btn btn-outline-secondary btn-sm">View in Items List</a>
+</div>
+
+{% if items %}
+  <p class="text-muted">⚠ Items expiring in the next 3 days.</p>
+  <div class="list-group">
+    {% for item in items %}
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <div class="fw-semibold">{{ item.product_name }}</div>
+          <small class="text-muted">
+            {{ item.category or 'Uncategorized' }} •
+            Expires: {{ item.expiry_date.strftime("%Y-%m-%d") }}
+          </small>
+        </div>
+        <span class="badge bg-warning text-dark">Expiring</span>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-success">
+    No items are expiring in the next 3 days. 🎉
+  </div>
+{% endif %}
+{% endblock %}
+
